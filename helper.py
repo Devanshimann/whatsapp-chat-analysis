@@ -1,4 +1,5 @@
 from urlextract import URLExtract
+import pandas as pd
 extract=URLExtract()
 def fetch(selected,df):
     if selected!="overall":
@@ -11,3 +12,8 @@ def fetch(selected,df):
     links=[]
     links.extend(extract.find_urls(msg))
     return num_msg,len(words),media,len(links)
+def busy(df):
+    x=df['sender'].value_counts().head()
+    df=round((df['sender'].value_counts()/df.shape[0])*100,2).reset_index().rename({'sender':'name','user':'percent'})
+    print(df)
+    return x,df
