@@ -43,3 +43,15 @@ if uploaded_file is not None:
                 st.pyplot(fig)
             with col2:
                 st.dataframe(df1)
+        st.title('Wordcloud')
+        df2=helper.word(selected,df)
+        fig,ax=plt.subplots()
+        ax.imshow(df2)
+        st.pyplot(fig)
+
+        df4=helper.common(selected,df)
+        st.dataframe(df4)
+
+        emojjidf=helper.emojihelper(selected,df)
+        st.dataframe(emojjidf)
+        

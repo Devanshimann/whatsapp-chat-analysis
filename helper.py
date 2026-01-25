@@ -1,5 +1,9 @@
 from urlextract import URLExtract
 import pandas as pd
+from wordcloud import WordCloud
+from collections import Counter
+import emoji
+
 extract=URLExtract()
 def fetch(selected,df):
     if selected!="overall":
@@ -17,3 +21,41 @@ def busy(df):
     df=round((df['sender'].value_counts()/df.shape[0])*100,2).reset_index().rename({'sender':'name','user':'percent'})
     print(df)
     return x,df
+def word(selected,df):
+    if selected!="overall":
+        df=df[df['sender']==selected]
+    wc=WordCloud(width=500,height=500,background_color='white')
+    dfwc=wc.generate(df['message'].str.cat(sep=' '))
+    return dfwc
+def common(selected,df):
+    if selected!="overall":
+        df=df[df['sender']==selected]
+    f=open("stop_hinglish.txt",'r')
+    stop=f.read()
+    temp=df[df['message']!='<image omitted>\n']
+    words=[]
+
+    for message in temp['message']:
+        for word in message.lower().split():
+            if word not in stop:
+                words.append(word)
+    returndf=pd.DataFrame(Counter(words).most_common(20))
+    return returndf
+
+def emojihelper(selected,df):
+    if selected!="overall":
+        df=df[df['sender']==selected]
+    emojilist=[]
+    for msg in df['message']:
+        for c in msg:
+          if emoji.is_emoji(c): 
+            emojilist.append(c)
+    emojidf=pd.DataFrame(Counter(emojilist).most_common(len(Counter(emojilist))))
+    return emojidf
+
+        
+
+
+
+
+    
