@@ -44,6 +44,9 @@ def preprocess(data):
     
     
     df['year'] = df['datetime'].dt.year
+    df['month']=df['datetime'].dt.month
+    df['day_name']=df['datetime'].dt.day_name()
+    df['month_name']=df['datetime'].dt.month_name()
     df['date_only'] = df['datetime'].dt.date  
     df['hour'] = df['datetime'].dt.hour
     df['minute'] = df['datetime'].dt.minute

@@ -9,7 +9,7 @@ if uploaded_file is not None:
     data=bytes_data.decode("utf-8")
     
     df=preprocessor.preprocess(data)
-    st.dataframe(df)
+    # st.dataframe(df)
     user_list=df['sender'].unique().tolist()
     user_list.sort()
     # user_list.remove("group_notification")
@@ -50,8 +50,42 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
         df4=helper.common(selected,df)
+        st.title("Most common words")
         st.dataframe(df4)
 
         emojjidf=helper.emojihelper(selected,df)
-        st.dataframe(emojjidf)
+        st.title("Emoji analysis")
+        col1,col2=st.columns(2)
+        with col1:
+
+          st.dataframe(emojjidf)
+        with col2:
+            if emojjidf.empty:
+              st.write("No emojis used by this user")
+            else:
+             fig,ax=plt.subplots()
+             ax.pie(emojjidf['count'].head(),labels=emojjidf['emoji'].head(),autopct="%0.2f")
+             st.pyplot(fig)
+
+        st.title("monthly timeline")
+        timeline,time=helper.month(selected,df)
+        fig,ax=plt.subplots()
+        ax.plot(time,timeline['message'],color='green')
+        plt.xticks(rotation='vertical')
+        st.pyplot(fig)
+        st.title("Activity map")
+        col1,col2=st.columns(2)
+        with col1:
+            st.header("Most busy day")
+            busy=helper.day(selected,df)
+            fig,ax=plt.subplots()
+            ax.plot(busy.index,busy.values)
+            st.pyplot(fig)
+        with col2:
+            st.header("Most busy month")
+            busy1=helper.month_activity(selected,df)
+            fig,ax=plt.subplots()
+            ax.plot(busy1.index,busy1.values)
+            st.pyplot(fig)
+
         
