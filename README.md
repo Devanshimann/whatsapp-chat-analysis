@@ -4,7 +4,7 @@ An interactive web app that analyzes your WhatsApp chat history and generates de
 
 🚀 Live Demo
 
-🔗 Try the app here:(https://whatsapp-chat-analysis-001.streamlit.app/)
+🔗 Try the app here:(https://whatsapp-chat-analysis-001.streamlit.app/)</br>
 📖 About the Project
 
 This app allows users to upload their exported WhatsApp chat file and instantly view meaningful analytics.
