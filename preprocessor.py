@@ -50,6 +50,17 @@ def preprocess(data):
     df['date_only'] = df['datetime'].dt.date  
     df['hour'] = df['datetime'].dt.hour
     df['minute'] = df['datetime'].dt.minute
+    period=[]
+    for hour in df[['day_name','hour']]['hour']:
+      if hour==23:
+        period.append(str(hour)+'-'+str('00'))
+      elif hour==0:
+        period.append(str(hour)+'-'+str('1'))
+      else:
+        period.append(str(hour)+'-'+str(hour+1))
+    df['period']=period
+       
+    
 
     return df
   

@@ -1,6 +1,7 @@
 import streamlit as st
 import preprocessor,helper
 import matplotlib.pyplot as plt
+import seaborn as sns
 st.sidebar.title("Whatsapp chat analyzer")
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 if uploaded_file is not None:
@@ -12,6 +13,7 @@ if uploaded_file is not None:
     # st.dataframe(df)
     user_list=df['sender'].unique().tolist()
     user_list.sort()
+    st.title("Chat statistics")
     # user_list.remove("group_notification")
     user_list.insert(0,"overall")
     selected=st.sidebar.selectbox("show analysis wrt user",user_list)
@@ -87,5 +89,9 @@ if uploaded_file is not None:
             fig,ax=plt.subplots()
             ax.plot(busy1.index,busy1.values)
             st.pyplot(fig)
-
+        user=helper.period(selected,df)
+        st.title('Weekly Heatmap')
+        fig,ax=plt.subplots()
+        ax=sns.heatmap(user)
+        st.pyplot(fig)
         

@@ -72,6 +72,11 @@ def month_activity(selected,df):
     if selected!="overall":
         df=df[df['sender']==selected]
     return df['month_name'].value_counts()
+def period(selected,df):
+    if selected!="overall":
+        df=df[df['sender']==selected]
+    activity=df.pivot_table(index='day_name',columns='period',values='message',aggfunc='count').fillna(0)
+    return activity
     
     
 
