@@ -4,4 +4,4 @@ matplotlib
 emoji
 seaborn
 wordcloud
-urlextract
+urlextract==0.14
