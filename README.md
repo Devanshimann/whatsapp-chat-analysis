@@ -1,4 +1,4 @@
-#📊 WhatsApp Chat Analyzer
+<h1>📊 WhatsApp Chat Analyzer</h1>
 
 An interactive web app that analyzes your WhatsApp chat history and generates detailed insights using visualizations, trends, and statistics — all in one place.
 
